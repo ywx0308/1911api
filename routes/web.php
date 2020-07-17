@@ -14,4 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test','Test\TestController@getwxtoken');
+//注册
+Route::post('/test/reg','Test\TestController@reg');
+//登录
+Route::post('/test/login','Test\TestController@login');
+//个人中心
+Route::post('/test/conter','Test\TestController@conter');
+
+
