@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
+
 //注册
 Route::post('/test/reg','Test\TestController@reg');
 //登录
@@ -23,10 +23,3 @@ Route::post('/test/login','Test\TestController@login');
 Route::post('/test/conter','Test\TestController@conter');
 
 
-=======
-Route::get('/test/getwxtoken','Test\TestController@getwxtoken');
-Route::get('/test/getwxtoken2','Test\TestController@getwxtoken2');
-Route::get('/test/getwxtoken3','Test\TestController@getwxtoken3');
-
-Route::get('/test/apiinit','Test\TestController@apiinit');
->>>>>>> 163895baf36f06bcdc34bf512a69275910090bca
