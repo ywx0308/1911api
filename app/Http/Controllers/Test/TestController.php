@@ -77,6 +77,20 @@ class TestController extends Controller
         $name = request()->input("user_name");
         $pwd = request()->input("user_pwd");
         $user=UserModel::where(["user_name"=>$name])->first();
+        if(empty($name)){
+            $response=[
+                "error"=>"40001",
+                "msg"=>"用户名不能为空"
+            ];
+            return $response;
+        }
+        if(empty($pwd)){
+            $response=[
+                "error"=>"40003",
+                "msg"=>"密码不能为空"
+            ];
+            return $response;
+        }
         if($user){
             $pwd = password_verify($pwd,$user->user_pwd);
             //生成token
@@ -103,7 +117,28 @@ class TestController extends Controller
     }
     public function conter()
     {
-      
+        $token = request()->get("token");
+        if(empty($token)){
+            $response=[
+                "error"=>"40007",
+                "msg"=>"请输入token"
+            ];
+            return $response;
+        }
+        $data=TokenModel::where(["token"=>$token])->first();
+        if($data){
+            $response=[
+                "error"=>"0",
+                "msg"=>"欢迎来到个人中心"
+            ];
+            return $response;
+        }else{
+            $response=[
+                "error"=>"40009",
+                "msg"=>"请输入正确token"
+            ];
+            return $response;
+        }
     }
 
 }
