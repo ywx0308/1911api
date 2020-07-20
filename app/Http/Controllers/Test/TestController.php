@@ -8,10 +8,10 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use App\Model\TokenModel;
 use App\Model\UserModel;
+use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
 {
-
     //注册
 
     public function reg(Request $request){
@@ -103,7 +103,7 @@ class TestController extends Controller
             //token入库
             $res = TokenModel::create($data);
             $response=[
-                "error"=>"0",
+                "error"=>"1",
                 "msg"=>"登录成功",
                 "token"=>$token
             ];
@@ -115,6 +115,9 @@ class TestController extends Controller
         }
         return $response;
     }
+
+    //个人中心
+
     public function conter()
     {
         $token = request()->get("token");
@@ -128,7 +131,7 @@ class TestController extends Controller
         $data=TokenModel::where(["token"=>$token])->first();
         if($data){
             $response=[
-                "error"=>"0",
+                "error"=>"2",
                 "msg"=>"欢迎来到个人中心"
             ];
             return $response;
@@ -138,7 +141,27 @@ class TestController extends Controller
                 "msg"=>"请输入正确token"
             ];
             return $response;
+
         }
     }
+
+    //redis哈希练习
+
+    public function hash(){
+        $data=[
+            "name"=>"zhangyi",
+            "age"=>18,
+            "class"=>"1911班"
+        ];
+        $tom="boy";
+        Redis::hmset($tom,$data);
+    }
+    public function hash1(){
+        $tom="boy";
+        $res=Redis::hgetall($tom);
+        return $res;
+
+    }
+
 
 }

@@ -21,5 +21,7 @@ Route::post('/test/reg','Test\TestController@reg');
 Route::post('/test/login','Test\TestController@login');
 //个人中心
 Route::post('/test/conter','Test\TestController@conter');
-
+//redis
+Route::get('/test/hash','Test\TestController@hash');
+Route::post('/test/hash2','Test\TestController@hash2');
 
