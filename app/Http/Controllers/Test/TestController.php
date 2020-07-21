@@ -120,6 +120,7 @@ class TestController extends Controller
 
     public function conter()
     {
+        //获取token
         $token = request()->get("token");
         if(empty($token)){
             $response=[
@@ -128,7 +129,14 @@ class TestController extends Controller
             ];
             return $response;
         }
+        //黑名单
+        $res1="blake";
+
+
         $data=TokenModel::where(["token"=>$token])->first();
+        //签到
+        $res ="qiandao";
+        Redis::zincrby($res,time(),$data["user_id"]);
         if($data){
             $response=[
                 "error"=>"2",
@@ -162,6 +170,5 @@ class TestController extends Controller
         return $res;
 
     }
-
 
 }

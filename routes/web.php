@@ -20,8 +20,11 @@ Route::post('/test/reg','Test\TestController@reg');
 //登录
 Route::post('/test/login','Test\TestController@login');
 //个人中心
-Route::post('/test/conter','Test\TestController@conter');
+Route::get('/test/conter','Test\TestController@conter')->Middleware('count');
 //redis
 Route::get('/test/hash','Test\TestController@hash');
 Route::post('/test/hash2','Test\TestController@hash2');
+//商品详情
+Route::post('/test/info','Goods\GoodsController@info');
+
 
