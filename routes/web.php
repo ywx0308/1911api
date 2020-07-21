@@ -20,7 +20,7 @@ Route::post('/test/reg','Test\TestController@reg');
 //登录
 Route::post('/test/login','Test\TestController@login');
 //个人中心
-Route::get('/test/conter','Test\TestController@conter')->Middleware('count');
+Route::get('/test/conter','Test\TestController@conter')->Middleware('auth.token');
 //redis
 Route::get('/test/hash','Test\TestController@hash');
 Route::post('/test/hash2','Test\TestController@hash2');

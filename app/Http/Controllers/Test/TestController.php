@@ -122,34 +122,21 @@ class TestController extends Controller
     {
         //获取token
         $token = request()->get("token");
-        if(empty($token)){
-            $response=[
-                "error"=>"40007",
-                "msg"=>"请输入token"
-            ];
-            return $response;
-        }
         //黑名单
         $res1="blake";
 
-
+        //查看token是否和库中一样
         $data=TokenModel::where(["token"=>$token])->first();
         //签到
         $res ="qiandao";
         Redis::zincrby($res,time(),$data["user_id"]);
+        //判断token正确进去个人中心
         if($data){
             $response=[
                 "error"=>"2",
                 "msg"=>"欢迎来到个人中心"
             ];
             return $response;
-        }else{
-            $response=[
-                "error"=>"40009",
-                "msg"=>"请输入正确token"
-            ];
-            return $response;
-
         }
     }
 
