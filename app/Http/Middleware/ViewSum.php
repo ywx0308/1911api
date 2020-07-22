@@ -3,10 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Model\TokenModel;
-use App\Model\UserModel;
 use Illuminate\Support\Facades\Redis;
-class ViewCount
+
+class ViewSum
 {
     /**
      * Handle an incoming request.
@@ -16,15 +15,16 @@ class ViewCount
      * @return mixed
      */
     public function handle($request, Closure $next)
+
     {
-        $uid= $request->get('user_id');
-        $key = 'c:view_count:'.$uid;
-        $url=$_SERVER["REQUEST_URI"];
-        echo $url;
-        if(strpos($url,'?')){
-            $url=substr($url,0,strpos($url,'?'));
+
+        $url = $_SERVER["REQUEST_URI"];
+        $res = strpos($url,'?');
+        if($res){
+            $url=substr($url,0,$res);
         }
-        Redis::hincrby($key,$url,1);
+        $key="z:view_sum";
+        Redis::zincrby($key,1,$url);
         return $next($request);
     }
 }

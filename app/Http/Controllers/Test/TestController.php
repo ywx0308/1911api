@@ -107,6 +107,13 @@ class TestController extends Controller
                 "msg"=>"登录成功",
                 "token"=>$token
             ];
+
+            $key = 'c:view_count:'.$user->user_id;
+            $url=$_SERVER["REQUEST_URI"];
+            if(strpos($url,'?')){
+                $url=substr($url,0,strpos($url,'?'));
+            }
+            Redis::hincrby($key,$url,1);
         }else{
             $response=[
                 "error"=>"40006",
