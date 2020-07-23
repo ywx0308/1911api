@@ -165,4 +165,13 @@ class TestController extends Controller
 
     }
 
+    //解密
+    public function decrypt(){
+        $data =file_get_contents("php://input");
+        $method = "AES-256-CBC";
+        $key = "1911_api";
+        $iv = "aaaabbbbccccdddd";
+        $enc = openssl_decrypt($data,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo $enc;
+    }
 }

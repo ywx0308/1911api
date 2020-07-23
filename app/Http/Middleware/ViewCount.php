@@ -8,6 +8,7 @@ use App\Model\UserModel;
 use Illuminate\Support\Facades\Redis;
 class ViewCount
 {
+
     /**
      * Handle an incoming request.
      *
@@ -18,12 +19,13 @@ class ViewCount
     public function handle($request, Closure $next)
     {
         $uid= $request->get('user_id');
-        $key = 'c:view_count:'.$uid;
         $url=$_SERVER["REQUEST_URI"];
         echo $url;
         if(strpos($url,'?')){
             $url=substr($url,0,strpos($url,'?'));
         }
+
+        $key = 'c:view_count:'.$uid;
         Redis::hincrby($key,$url,1);
         return $next($request);
     }

@@ -26,5 +26,7 @@ Route::get('/test/hash','Test\TestController@hash');
 Route::post('/test/hash2','Test\TestController@hash2');
 //商品详情
 Route::get('/test/goods','Goods\GoodsController@info')->Middleware('auth.token','count');
+//解密
+Route::any('/test/decrypt','Test\TestController@decrypt');
 
 
