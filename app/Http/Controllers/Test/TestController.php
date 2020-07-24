@@ -165,13 +165,23 @@ class TestController extends Controller
 
     }
 
-    //解密
+    //对称解密
     public function decrypt(){
-        $data =file_get_contents("php://input");
+        $enc_data =file_get_contents("php://input");
+        $enc = base64_decode($enc_data);
         $method = "AES-256-CBC";
         $key = "1911_api";
         $iv = "aaaabbbbccccdddd";
-        $enc = openssl_decrypt($data,$method,$key,OPENSSL_RAW_DATA,$iv);
-        echo $enc;
+        $res = openssl_decrypt($enc,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo $res;
+    }
+    //非对称解密
+    public function no_decrypt(){
+        $enc_data =file_get_contents("php://input");
+
+        $content = file_get_contents(storage_path("key/pub.key"));
+        $pub_key = openssl_get_publickey($content);
+        openssl_public_decrypt($enc_data,$enc_data,$pub_key);
+        echo $enc_data;
     }
 }
