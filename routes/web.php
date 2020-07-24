@@ -28,7 +28,8 @@ Route::post('/test/hash2','Test\TestController@hash2');
 Route::get('/test/goods','Goods\GoodsController@info')->Middleware('auth.token','count');
 //对称解密
 Route::any('/test/decrypt','Test\TestController@decrypt');
-//非对称解密
+//非对称解密1911项目秘钥
 Route::any('/test/no_decrypt','Test\TestController@no_decrypt');
+Route::get('/test/no_encrypt','Test\TestController@no_encrypt');
 
 

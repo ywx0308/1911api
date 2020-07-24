@@ -167,21 +167,28 @@ class TestController extends Controller
 
     //对称解密
     public function decrypt(){
-        $enc_data =file_get_contents("php://input");
-        $enc = base64_decode($enc_data);
+        $enc_data =file_get_contents("php://input");//接受加密后的密文
+        $enc = base64_decode($enc_data);//解密方法
         $method = "AES-256-CBC";
         $key = "1911_api";
         $iv = "aaaabbbbccccdddd";
         $res = openssl_decrypt($enc,$method,$key,OPENSSL_RAW_DATA,$iv);
         echo $res;
     }
-    //非对称解密
+    //非对称解密（1）
     public function no_decrypt(){
-        $enc_data =file_get_contents("php://input");
+        $enc_data =file_get_contents("php://input");//接受加密后的密文
+        $content = file_get_contents(storage_path("key/1911_pub.key"));//获取公钥内容
+        $pub_key = openssl_get_publickey($content);//获取公钥
+        openssl_public_decrypt($enc_data,$enc_data,$pub_key);//公钥解密
 
-        $content = file_get_contents(storage_path("key/pub.key"));
-        $pub_key = openssl_get_publickey($content);
-        openssl_public_decrypt($enc_data,$enc_data,$pub_key);
+        //echo $enc_data;die;
+        //返回加密
+        $data = "猪已杀,肉已顿,过来大口吃肉，大碗喝酒";
+        $content = file_get_contents(storage_path("key/api_priv.key"));//获取私钥内容
+        $pub_key = openssl_get_privatekey($content);//获取私钥
+        openssl_private_encrypt($data,$enc_data,$pub_key);//私钥加密
         echo $enc_data;
     }
+
 }
