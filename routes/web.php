@@ -31,5 +31,9 @@ Route::any('/test/decrypt','Test\TestController@decrypt');
 //非对称解密1911项目秘钥
 Route::any('/test/no_decrypt','Test\TestController@no_decrypt');
 Route::get('/test/no_encrypt','Test\TestController@no_encrypt');
+//签名
+Route::get('/test/name2','Test\TestController@name2');
+//签名解密
+Route::get('/test/nam_decrypt','Test\TestController@nam_decrypt');
 
 

@@ -190,5 +190,31 @@ class TestController extends Controller
         openssl_private_encrypt($data,$enc_data,$pub_key);//私钥加密
         echo $enc_data;
     }
+    //签名验签
+    public function name2(Request $request){
+        $key = "api_1911";
+        $name = $request->get("name");
+        $sign = $request->get("data");
+        $signs = md5($key.$name);
+        if($sign==$signs){
+            echo "签名验证成功";
+        }else{
+            echo "签名验证失败";
+        }
+    }
+    //签名解密
+    public function nam_decrypt(){
+        $content = request()->get("content");
+        $data = request()->get("data");
+        $enc = base64_decode($data);
+        $con = file_get_contents(storage_path("key/1911_pub.key"));
+        $pub_key = openssl_get_publickey($con);
+        $res = openssl_verify($content,$enc,$pub_key);
+        if($res){
+            echo "验签成功";
+        }else{
+            echo "验签失败";
+        }
 
+    }
 }
