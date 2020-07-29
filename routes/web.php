@@ -36,4 +36,7 @@ Route::get('/test/name2','Test\TestController@name2');
 //签名解密
 Route::get('/test/nam_decrypt','Test\TestController@nam_decrypt');
 
+//H5商城
+Route::get('/api/reg','Api\ApiController@reg');//注册
+Route::get('/api/login','Api\ApiController@login');//登录
 

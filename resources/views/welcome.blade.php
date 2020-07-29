@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    www
+                    API
                 </div>
 
                 <div class="links">

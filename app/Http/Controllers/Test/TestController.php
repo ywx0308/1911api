@@ -59,9 +59,7 @@ class TestController extends Controller
 //        $res = $client->request('GET', $url)->getBody()->getContents();
 //        echo $res;
     }
-
     //注册
-
     public function reg(Request $request){
         $user_name=$request->post("user_name");
         $user_email= $request->post("email");
@@ -118,9 +116,7 @@ class TestController extends Controller
         return $response;
 
     }
-
     //登录
-
     public function login(){
         $name = request()->input("user_name");
         $pwd = request()->input("user_pwd");
@@ -170,16 +166,11 @@ class TestController extends Controller
         }
         return $response;
     }
-
     //个人中心
-
     public function conter()
     {
         //获取token
         $token = request()->get("token");
-        //黑名单
-        $res1="blake";
-
         //查看token是否和库中一样
         $data=TokenModel::where(["token"=>$token])->first();
         //签到
@@ -194,9 +185,7 @@ class TestController extends Controller
             return $response;
         }
     }
-
     //redis哈希练习
-
     public function hash(){
         $data=[
             "name"=>"zhangyi",
@@ -212,7 +201,6 @@ class TestController extends Controller
         return $res;
 
     }
-
     //对称解密
     public function decrypt(){
         $enc_data =file_get_contents("php://input");//接受加密后的密文
@@ -223,7 +211,7 @@ class TestController extends Controller
         $res = openssl_decrypt($enc,$method,$key,OPENSSL_RAW_DATA,$iv);
         echo $res;
     }
-    //非对称解密（1）
+    //非对称解密和返回
     public function no_decrypt(){
         $enc_data =file_get_contents("php://input");//接受加密后的密文
         $content = file_get_contents(storage_path("key/1911_pub.key"));//获取公钥内容
@@ -250,7 +238,7 @@ class TestController extends Controller
             echo "签名验证失败";
         }
     }
-    //签名解密
+    //签名非对称解密
     public function nam_decrypt(){
         $content = request()->get("content");
         $data = request()->get("data");
@@ -263,6 +251,10 @@ class TestController extends Controller
         }else{
             echo "验签失败";
         }
+
+    }
+    //签名对称加密
+    public function nam_enc2(){
 
     }
 }
