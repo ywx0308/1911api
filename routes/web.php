@@ -35,8 +35,13 @@ Route::get('/test/no_encrypt','Test\TestController@no_encrypt');
 Route::get('/test/name2','Test\TestController@name2');
 //签名解密
 Route::get('/test/nam_decrypt','Test\TestController@nam_decrypt');
+//沙箱支付
+Route::get('/api/alipay','Api\ApiController@alipay');
+Route::get('/api/do_alipay','Api\ApiController@do_alipay');
 
 //H5商城
 Route::get('/api/reg','Api\ApiController@reg');//注册
 Route::get('/api/login','Api\ApiController@login');//登录
+
+
 
