@@ -38,6 +38,9 @@ Route::get('/test/nam_decrypt','Test\TestController@nam_decrypt');
 //沙箱支付
 Route::get('/api/alipay','Api\ApiController@alipay');
 Route::get('/api/do_alipay','Api\ApiController@do_alipay');
+//文件上传
+Route::get('test/file','Test\TestController@file');
+Route::post('test/upload','Test\TestController@upload');
 
 //H5商城
 Route::get('/api/reg','Api\ApiController@reg');//注册

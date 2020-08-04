@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Model\TokenModel;
 use App\Model\UserModel;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
@@ -253,8 +254,32 @@ class TestController extends Controller
         }
 
     }
-    //签名对称加密
-    public function nam_enc2(){
-
+    //文件上传
+    public function file(){
+        return view("test.file");
+    }
+    public function upload(Request $request){
+        if ($request->isMethod('POST')){
+            $file = $request->file('source');
+            //判断文件是否上传成功
+            if ($file->isValid()){
+                //原文件名
+                $originalName = $file->getClientOriginalName();
+                //扩展名
+                $ext = $file->getClientOriginalExtension();
+                //MimeType
+                $type = $file->getClientMimeType();
+                //临时绝对路径
+                $realPath = $file->getRealPath();
+                $filename = uniqid().'.'.$ext;
+                $bool = Storage::disk('publics')->put($filename,file_get_contents($realPath));
+                //判断是否上传成功
+                if($bool){
+                    echo 'success';
+                }else{
+                    echo 'fail';
+                }
+            }
+        }
     }
 }

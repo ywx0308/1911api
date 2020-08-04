@@ -94,7 +94,6 @@ class ApiController extends Controller
             return $response;
         }
     }
-
     //沙箱支付
     public function alipay(){
         return view("api.alipay");
@@ -153,8 +152,6 @@ class ApiController extends Controller
         //echo $url;
     }
 
-
-
     protected function sign($data)
     {
 //        if ($this->checkEmpty($this->rsaPrivateKeyFilePath)) {
@@ -179,4 +176,5 @@ class ApiController extends Controller
         $sign = base64_encode($sign);
         return $sign;
     }
+
 }
